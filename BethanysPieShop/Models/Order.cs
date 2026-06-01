@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 
 namespace BethanysPieShop.Models
@@ -63,5 +63,7 @@ namespace BethanysPieShop.Models
         [BindNever]
         public DateTime OrderPlaced { get; set; }
 
+        [BindNever]
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
     }
 }

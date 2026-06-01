@@ -5,8 +5,11 @@
       "sqlAdministratorLogin": {
         "value": "pieshopdbadm"
       },
-      "sqlAdministratorLoginPassword": {		
-        "value": "YD*Upp!R4BzNKua$f@Y"		
+      "sqlAdministratorLoginPassword": {
+        "value": "YD*Upp!R4BzNKua$f@Y"
+      },
+      "sendGridApiKey": {
+        "value": ""
       }
     }
   }

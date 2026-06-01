@@ -1,4 +1,4 @@
-﻿using BethanysPieShop.Models;
+using BethanysPieShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BethanysPieShop.Controllers
@@ -7,11 +7,13 @@ namespace BethanysPieShop.Controllers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IShoppingCart _shoppingCart;
+        private readonly ILogger<OrderController> _logger;
 
-        public OrderController(IOrderRepository orderRepository, IShoppingCart shoppingCart)
+        public OrderController(IOrderRepository orderRepository, IShoppingCart shoppingCart, ILogger<OrderController> logger)
         {
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
+            _logger = logger;
         }
 
         public IActionResult Checkout() //Get
@@ -27,12 +29,14 @@ namespace BethanysPieShop.Controllers
 
             if (_shoppingCart.ShoppingCartItems.Count == 0)
             {
+                _logger.LogWarning("Checkout attempted with empty cart.");
                 ModelState.AddModelError("", "Your cart is empty, add some pies first");
             }
 
             if (ModelState.IsValid)
             {
                 _orderRepository.CreateOrder(order);
+                _logger.LogInformation("Order {OrderId} created.", order.OrderId);
                 _shoppingCart.ClearCart();
                 return RedirectToAction("CheckoutComplete");
             }
